@@ -21,7 +21,7 @@ const Nav = () => {
     console.log(pathname.charAt(1));
 
     return (
-        <Container maxWidth="md" sx={{position:'-webkit-sticky'}}>
+        <Container fixed sx={{position:'-webkit-sticky'}}>
             <Box sx={{ flexGrow:1 }}>
                 <AppBar position="static">
                     <Toolbar>
@@ -60,7 +60,7 @@ const Nav = () => {
                         </IconButton>
                         <Typography variant="h6" component="div" sx={{flexGrow:1}} onClick={()=>{
                             history.push('/')
-                        }}>{pathname.charAt(1) === null ? "Home" : pathname.charAt(1).toUpperCase() + pathname.slice(2)}</Typography>
+                        }}>Home</Typography>
                         {auth ? (
                             <Button color="inherit" onClick={()=>{
                                 history.push('/admin')

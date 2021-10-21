@@ -35,18 +35,17 @@ const Login = () => {
                             <Button color="inherit" variant="contained" onClick={()=>{
                                 history.push('/')
                             }}>Cancel</Button> &nbsp;
-                            <Button color="primary" variant="contained" onClick={()=>{
+                            <Button color="primary" variant="contained" onClick={async()=>{
                                 try {
-                                    axios.get(`https://jsonplaceholder.typicode.com/users/${user}`).then((res)=>{
-                                        if(email === res.data.email){
-                                            setAuth(true)
-                                            setUserid(res.data.id)
-                                            Cookies.set('auth',auth)
-                                            Cookies.set('userid', res.data.id)
-                                        }else{
-                                            console.log("gagal cux");
-                                        }
-                                    })
+                                    let res = await axios.get(`https://jsonplaceholder.typicode.com/users/${user}`)
+                                    if(email === res.data.email){
+                                        setAuth(true)
+                                        setUserid(res.data.id)
+                                        Cookies.set('auth',true)
+                                        Cookies.set('userid', res.data.id)
+                                    }else{
+                                        console.log("gagal cux");
+                                    }
                                 } catch (error) {
                                     console.log(error);
                                 }

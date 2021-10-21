@@ -1,4 +1,3 @@
-import axios from 'axios'
 import Cookies from 'js-cookie'
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter,Switch,Route } from 'react-router-dom'
@@ -10,16 +9,7 @@ import Home from './pages/Home'
 
 const App = () => {
   const [auth,setAuth] = useState(false)
-  const [poster,setPoster] = useState([])
   const [userid, setUserid] = useState(0)
-  const getPoster = async() => {
-    try {
-        let res = await axios.get('https://jsonplaceholder.typicode.com/posts')
-        setPoster(res.data)
-    } catch (error) {
-        console.log(error);
-    }
-  }
 
   const getCookies = async() => {
     try {
@@ -38,7 +28,6 @@ const App = () => {
   }
 
   useEffect(()=>{
-      getPoster()
       getCookies()
   },[])
 
@@ -46,7 +35,6 @@ const App = () => {
     <AllContext.Provider value={{
       auth: auth,
       setAuth: setAuth,
-      poster: poster,
       userid: userid,
       setUserid: setUserid
     }}>
