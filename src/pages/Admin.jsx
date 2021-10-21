@@ -11,15 +11,15 @@ import { Redirect } from 'react-router';
 
 const Admin = () => {
     const {auth,userid,poster} = useContext(AllContext)
-    console.log(poster);
-    const filtered = (all) => {
-        return all.userId.toUpperCase().indexOf(userid.toUpperCase()) > -1
+    console.log(userid);
+    const filtered = (posts) => {
+        return posts.userId.toUpperCase().indexOf(userid.toUpperCase()) > 1
     }
     if(auth){
         return (
             <Container maxWidth="md">
                 <List sx={{ width: '100%', bgcolor: 'background.paper'}}>
-                {poster.filter(filtered).map((item,i)=>(
+                {poster.filter(user => user.userId = userid).map((item,i)=>(
                     <Card variant='outlined' style={{marginBottom:5}} key={i}>
                         <ListItem alignItems="flex-start" style={{border: 1, backgroundColor:`${i % 2 === 0 ? "#eee" : "#fff"}`, position:"static" }}>
                             <ListItemText
