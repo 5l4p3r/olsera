@@ -1,0 +1,17 @@
+.modal {
+    width: 765px;
+}
+.search {
+    width: 300px;
+}
+@media only screen and (max-width: 765px){
+    .modal {
+        width: 100%;
+    }
+    .search {
+        width: 100%;
+    }
+    .nav {
+        width: 100%;
+    }
+}

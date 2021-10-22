@@ -68,7 +68,7 @@ const AdminPage = () => {
         return (
             <Container fixed>
                 <Box sx={{ display:'flex', justifyContent:'flex-end', p:1 }}>
-                    <TextField label="Search" variant="outlined" onChange={(e)=>setSearch(e.target.value)}/>
+                    <TextField className="search" label="Search" variant="outlined" onChange={(e)=>setSearch(e.target.value)}/>
                 </Box>
                 <List sx={{ width: '100%', bgcolor: 'background.paper'}}>
                 {poster.filter(filtered).map((item,i)=>(
@@ -127,13 +127,14 @@ const AdminPage = () => {
                     }}
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description">
-                    <Box sx={{
+                    <Box 
+                        className="modal"
+                        sx={{
                         position: 'absolute',
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        minWidth: '50%',
-                        maxWidth:'80%',
+                        maxWidth:'90%',
                         bgcolor: '#fff',
                         boxShadow: 24,
                         p: 4,
@@ -183,13 +184,14 @@ const AdminPage = () => {
                     setNewtitle('')
                     setEdit(false)
                 }}>
-                    <Box sx={{
+                    <Box
+                        className="modal" 
+                        sx={{
                         position: 'absolute',
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        minWidth: '50%',
-                        maxWidth:'80%',
+                        maxWidth:'90%',
                         bgcolor: '#fff',
                         boxShadow: 24,
                         p: 4,
@@ -241,12 +243,14 @@ const AdminPage = () => {
                     setId(null)
 
                 }}>
-                    <Box sx={{
+                    <Box
+                        className="modal"
+                        sx={{
                         position: 'absolute',
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        width: 300,
+                        maxWidth:'95%',
                         bgcolor: '#fff',
                         boxShadow: 24,
                         p: 4,

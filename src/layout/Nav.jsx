@@ -21,7 +21,7 @@ const Nav = () => {
     console.log(pathname.charAt(1));
 
     return (
-        <Container fixed sx={{position:'-webkit-sticky'}}>
+        <Container fixed sx={{position:'-webkit-sticky', backgroundColor:'primary'}}>
             <Box sx={{ flexGrow:1 }}>
                 <AppBar position="static">
                     <Toolbar>

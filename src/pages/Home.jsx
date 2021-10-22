@@ -97,13 +97,13 @@ const Home = () => {
                 setBody('')
             }}>
                 <Box
+                    className="modal"
                     sx={{
                     position: 'absolute',
                     top: '50%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    minWidth: '50%',
-                    maxWidth:'80%',
+                    maxWidth:'95%',
                     bgcolor: '#fff',
                     boxShadow: 24,
                     overflow:'scroll',
@@ -113,7 +113,7 @@ const Home = () => {
                     <Box>
                         <Typography variant="h5" sx={{marginBottom:3}}>{title.charAt(0).toUpperCase() + title.slice(0)}</Typography>
                         <Typography variant="p" sx={{marginBottom:2}}>{body}</Typography>
-                        <Box sx={{marginBottom:2,padding:2}}>
+                        <Box sx={{marginBottom:2,padding:1}}>
                             <Box sx={{display:'flex', flexDirection:'row'}}>
                                     <Typography variant='h6' sx={{fontSize:14}} onClick={()=>{
                                         let x = document.getElementById('coment')
@@ -135,7 +135,7 @@ const Home = () => {
                             <div id="coment" style={{display:'none'}}>
                             {liked.map((item,i)=>(
                                 <Card key={i}>
-                                    <CardContent>
+                                    <CardContent sx={{margin:1}}>
                                         <Typography variant='caption' sx={{ fontSize:14,fontStyle:'inherit' }}>{item.email + " - " + item.name}</Typography>
                                         <Typography sx={{ fontSize:12,fontStyle:'inherit' }}>{item.body}</Typography>
                                     </CardContent>
