@@ -106,8 +106,9 @@ const Home = () => {
                     maxWidth:'80%',
                     bgcolor: '#fff',
                     boxShadow: 24,
+                    overflow:'scroll',
+                    height:'90%',
                     p: 4,
-                    overflow: 'auto'
                 }}>
                     <Box>
                         <Typography variant="h5" sx={{marginBottom:3}}>{title}</Typography>
@@ -123,7 +124,15 @@ const Home = () => {
                                 </Card>
                             ))}
                         </Box>
-                    </Box>                 
+                    </Box>
+                    <Box sx={{ display:'flex',alignItems:'flex-end', justifyContent:'flex-end' }}>
+                        <Button color="info" variant='text' onClick={()=>{
+                            setOpen(false)
+                            setLiked([])
+                            setTitle('')
+                            setBody('')
+                        }}>Close</Button>
+                    </Box>
                 </Box>
             </Modal>
         </Container>
