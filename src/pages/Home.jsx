@@ -5,7 +5,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Button, Card, CardContent, Container, Modal, Pagination, Stack } from '@mui/material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import axios from 'axios';
 import { Box } from '@mui/system';
 
@@ -123,7 +123,7 @@ const Home = () => {
                                             x.style.display = 'none'
                                         }
                                     }}>Comments</Typography>
-                                    <KeyboardArrowDownIcon onClick={()=>{
+                                    <ArrowDropDownIcon onClick={()=>{
                                         let x = document.getElementById('coment')
                                         if(x.style.display === 'none'){
                                             x.style.display = 'block'
