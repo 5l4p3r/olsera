@@ -4,7 +4,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Button, Card, Container, Modal, Pagination, Stack } from '@mui/material';
+import { Button, Card, CardContent, Container, Modal, Pagination, Stack } from '@mui/material';
 import axios from 'axios';
 import { Box } from '@mui/system';
 
@@ -107,16 +107,20 @@ const Home = () => {
                     bgcolor: '#fff',
                     boxShadow: 24,
                     p: 4,
+                    overflow: 'auto'
                 }}>
                     <Box>
-                        <Typography variant="h5" sx={{marginBottom:5}}>{title}</Typography>
-                        <Typography variant="p" sx={{marginBottom:5}}>{body}</Typography>
-                        <Box sx={{backgroundColor:'yellow'}}>
+                        <Typography variant="h5" sx={{marginBottom:3}}>{title}</Typography>
+                        <Typography variant="p" sx={{marginBottom:2}}>{body}</Typography>
+                        <Box sx={{marginBottom:2,padding:2}}>
+                            <Typography variant='h6' sx={{fontSize:14}}>Comments</Typography>
                             {liked.map((item,i)=>(
-                                <div key={i}>
-                                    <Typography variant="h6" sx={{marginBottom:5}}>{item.name}</Typography>
-                                    <Typography variant="p" sx={{marginBottom:5}}>{item.body}</Typography>
-                                </div>
+                                <Card key={i}>
+                                    <CardContent>
+                                        <Typography variant='caption' sx={{ fontSize:14,fontStyle:'inherit' }}>{item.name}</Typography>
+                                        <Typography sx={{ fontSize:12,fontStyle:'inherit' }}>{item.body}</Typography>
+                                    </CardContent>
+                                </Card>
                             ))}
                         </Box>
                     </Box>                 
