@@ -111,7 +111,14 @@ const Home = () => {
                     <Box>
                         <Typography variant="h5" sx={{marginBottom:5}}>{title}</Typography>
                         <Typography variant="p" sx={{marginBottom:5}}>{body}</Typography>
-                        
+                        <Box sx={{backgroundColor:'yellow'}}>
+                            {liked.map((item,i)=>(
+                                <div key={i}>
+                                    <Typography variant="h6" sx={{marginBottom:5}}>{item.name}</Typography>
+                                    <Typography variant="p" sx={{marginBottom:5}}>{item.body}</Typography>
+                                </div>
+                            ))}
+                        </Box>
                     </Box>                 
                 </Box>
             </Modal>
