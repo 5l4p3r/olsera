@@ -13,6 +13,8 @@ const Home = () => {
     const [poster,setPoster] = useState([])
     const [open, setOpen] = useState(false)
     const [liked, setLiked] = useState([])
+    const [title, setTitle] = useState('')
+    const [body, setBody] = useState('')
 
     useEffect(()=>{
         const getPosters = async() => {
@@ -35,8 +37,11 @@ const Home = () => {
                         <ListItem alignItems="flex-start" style={{border: 1, position:"static" }}>
                             <ListItemText onClick={async()=>{
                                 try {
+                                    let resp = await axios.get(`https://jsonplaceholder.typicode.com/posts/${item.id}`)
+                                    setTitle(resp.data.title)
+                                    setBody(resp.data.body)
                                     let res = await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${item.id}`)
-                                    console.log(res.data);
+                                    
                                     setLiked(res.data)
                                     setOpen(true)
                                 } catch (error) {
@@ -88,6 +93,8 @@ const Home = () => {
             <Modal open={open} onClose={()=>{
                 setOpen(false)
                 setLiked([])
+                setTitle('')
+                setBody('')
             }}>
                 <Box
                     sx={{
@@ -101,11 +108,11 @@ const Home = () => {
                     boxShadow: 24,
                     p: 4,
                 }}>
-                    {liked.map((item,i)=>(
-                        <Box key={i}>
-                            <Typography variant="h5" sx={{marginBottom:5}}>{item.name}</Typography>
-                        </Box>
-                    ))}                    
+                    <Box>
+                        <Typography variant="h5" sx={{marginBottom:5}}>{title}</Typography>
+                        <Typography variant="p" sx={{marginBottom:5}}>{body}</Typography>
+                        
+                    </Box>                 
                 </Box>
             </Modal>
         </Container>
