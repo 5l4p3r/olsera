@@ -12,6 +12,7 @@ const App = () => {
   const [auth,setAuth] = useState(false)
   const [userid, setUserid] = useState(0)
   const [load, setLoad] = useState(true)
+  const [poster,setPoster] = useState([])
   
 
   useEffect(()=>{
@@ -36,6 +37,8 @@ const App = () => {
       setUserid: setUserid,
       load: load,
       setLoad: setLoad,
+      poster: poster,
+      setPoster: setPoster
     }}>
       <BrowserRouter>
         <Nav/>

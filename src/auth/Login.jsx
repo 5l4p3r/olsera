@@ -7,7 +7,7 @@ import { Redirect, useHistory } from 'react-router'
 import { AllContext } from '../hooks/AllContext'
 
 const Login = () => {
-    const {auth,setUserid,setAuth} = useContext(AllContext)
+    const {auth,setUserid,setAuth,setPoster} = useContext(AllContext)
     const [user, setUser] = useState('')
     const [email, setEmail] = useState('')
     const [open, setOpen] = useState(false)
@@ -46,6 +46,9 @@ const Login = () => {
                                             await Cookies.set('auth',true)
                                             await Cookies.set('userid', res.data.id)
                                             await Cookies.set('email', email)
+                                        })
+                                        await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${user}`).then((resp)=>{
+                                            setPoster(resp.data)
                                         })
                                     } catch (error) {
                                         setOpen(true)

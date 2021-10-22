@@ -15,8 +15,8 @@ import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
 
 const AdminPage = () => {
-    const {auth, userid, setUserid} = useContext(AllContext)
-    const [poster, setPoster] = useState([])
+    const {auth, userid, setUserid, poster} = useContext(AllContext)
+    const [posters, setPosters] = useState(poster)
     const [search, setSearch] = useState('')
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
@@ -35,21 +35,12 @@ const AdminPage = () => {
     const Loading = async() => {
         try {
             let res = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${userid}`)
-            setPoster(res.data);
+            setPosters(res.data);
         } catch (error) {
             console.log(error);
         }
     }
     useEffect(()=>{
-        const getPoster = async() => {
-            try {
-                let res = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${userid}`)
-                setPoster(res.data)
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        getPoster();
         const getCookies = async() => {
             try {
               const getId = await Cookies.get('userid')
@@ -62,6 +53,15 @@ const AdminPage = () => {
             }
           };
           getCookies();
+          const getPoster = async() => {
+            try {
+                let res = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${userid}`)
+                setPosters(res.data)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getPoster();
     },[])
   
     if(auth){
@@ -71,7 +71,7 @@ const AdminPage = () => {
                     <TextField className="search" label="Search" variant="outlined" onChange={(e)=>setSearch(e.target.value)}/>
                 </Box>
                 <List sx={{ width: '100%', bgcolor: 'background.paper'}}>
-                {poster.filter(filtered).map((item,i)=>(
+                {posters.filter(filtered).map((item,i)=>(
                     <div key={i} style={{
                         bgcolor: 'background.paper',
                     }}>
