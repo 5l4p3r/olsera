@@ -11,6 +11,7 @@ const App = () => {
   const [auth,setAuth] = useState(false)
   const [userid, setUserid] = useState(0)
   const [load, setLoad] = useState(true)
+  
 
   useEffect(()=>{
     const getCookies = async() => {
@@ -19,12 +20,6 @@ const App = () => {
         if(getAuth !== null){
           setAuth(getAuth)
         }
-  
-        const getId = await Cookies.get('userid')
-        if(getId !== null){
-          setUserid(getId)
-        }
-  
       } catch (error) {
         console.log(error);
       }
@@ -39,7 +34,7 @@ const App = () => {
       userid: userid,
       setUserid: setUserid,
       load: load,
-      setLoad: setLoad
+      setLoad: setLoad,
     }}>
       <BrowserRouter>
         <Nav/>

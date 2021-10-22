@@ -11,6 +11,7 @@ const Login = () => {
     const [user, setUser] = useState('')
     const [email, setEmail] = useState('')
     const history = useHistory()
+
     if(auth){
         return (
             <Redirect to='/admin'/>
@@ -37,18 +38,19 @@ const Login = () => {
                             }}>Cancel</Button> &nbsp;
                             <Button color="primary" variant="contained" onClick={async()=>{
                                 try {
-                                    let res = await axios.get(`https://jsonplaceholder.typicode.com/users/${user}`)
-                                    if(email === res.data.email){
-                                        setAuth(true)
-                                        setUserid(res.data.id)
-                                        Cookies.set('auth',true)
-                                        Cookies.set('userid', res.data.id)
-                                        Cookies.set('email', email)
-                                    }else{
-                                        return (
-                                            alert('UserId & Email Do Not match')
-                                        )
-                                    }
+                                    await axios.get(`https://jsonplaceholder.typicode.com/users/${user}`).then(async(res)=>{
+                                        if(email === res.data.email){
+                                            await setAuth(true)
+                                            await setUserid(res.data.id)
+                                            await Cookies.set('auth',true)
+                                            await Cookies.set('userid', res.data.id)
+                                            await Cookies.set('email', email)
+                                        }else{
+                                            return (
+                                                alert('UserId & Email Do Not match')
+                                            )
+                                        }
+                                    })
                                 } catch (error) {
                                     console.log(error);
                                 }

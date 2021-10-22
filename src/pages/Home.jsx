@@ -4,23 +4,22 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { pink } from '@mui/material/colors';
-import { Card, Container, Pagination, Stack } from '@mui/material';
+import { Button, Card, Container, Modal, Pagination, Stack } from '@mui/material';
 import axios from 'axios';
+import { Box } from '@mui/system';
 
 const Home = () => {
     const [total, setTotal] = useState(0)
-    const [page, setPage] = useState(1)
     const [poster,setPoster] = useState([])
-
-    
+    const [open, setOpen] = useState(false)
+    const [liked, setLiked] = useState([])
 
     useEffect(()=>{
         const getPosters = async() => {
             try {
                 let resp = await axios.get('https://jsonplaceholder.typicode.com/posts')
                 setTotal(resp.data.length/5)
-                let res = await axios.get(`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=5`)
+                let res = await axios.get(`https://jsonplaceholder.typicode.com/posts?_page=1&_limit=5`)
                 setPoster(res.data)
             } catch (error) {
                 console.log(error);
@@ -34,7 +33,16 @@ const Home = () => {
                 {poster.map((item,i)=>(
                     <Card variant='outlined' style={{marginBottom:5, height:85, backgroundColor:`${i % 2 === 0 ? "#eee" : "#fff"}` }} key={i}>
                         <ListItem alignItems="flex-start" style={{border: 1, position:"static" }}>
-                            <ListItemText
+                            <ListItemText onClick={async()=>{
+                                try {
+                                    let res = await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${item.id}`)
+                                    console.log(res.data);
+                                    setLiked(res.data)
+                                    setOpen(true)
+                                } catch (error) {
+                                    console.log(error);
+                                }
+                            }}
                             primary={ item.title.charAt(0).toUpperCase() + item.title.slice(1) }
                             secondary={
                                 <React.Fragment>
@@ -45,11 +53,20 @@ const Home = () => {
                                     color="text.primary"
                                 >
                                 </Typography>
-                                {item.body.charAt(0).toUpperCase() + item.body.slice(1)}
+                                    {item.body.charAt(0).toUpperCase() + item.body.slice(1)}
                                 </React.Fragment>
                             }
                             />
-                            <FavoriteIcon id={i} sx={{ color: pink[500] }}/>
+                            <Button variant="text" onClick={(e)=>{
+                                let x = document.getElementById(`${i}`)
+                                if(x.style.color === 'grey'){
+                                    x.style.color = 'red'
+                                }else{
+                                    x.style.color = 'grey'
+                                }
+                            }}>
+                                <FavoriteIcon id={i} style={{ color: 'grey' }} />
+                            </Button>
                         </ListItem>
                     </Card>
                 ))}
@@ -59,9 +76,8 @@ const Home = () => {
                     count={total}
                     color="primary"
                     onChange={async(event,value)=>{
-                        setPage(value)
                         try {
-                            let res = await axios.get(`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=5`)
+                            let res = await axios.get(`https://jsonplaceholder.typicode.com/posts?_page=${value}&_limit=5`)
                             setPoster(res.data)
                         } catch (error) {
                             console.log(error);
@@ -69,6 +85,29 @@ const Home = () => {
                     }}
                 />
             </Stack>
+            <Modal open={open} onClose={()=>{
+                setOpen(false)
+                setLiked([])
+            }}>
+                <Box
+                    sx={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    minWidth: '50%',
+                    maxWidth:'80%',
+                    bgcolor: '#fff',
+                    boxShadow: 24,
+                    p: 4,
+                }}>
+                    {liked.map((item,i)=>(
+                        <Box key={i}>
+                            <Typography variant="h5" sx={{marginBottom:5}}>{item.name}</Typography>
+                        </Box>
+                    ))}                    
+                </Box>
+            </Modal>
         </Container>
     )
 }
