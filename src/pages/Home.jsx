@@ -5,6 +5,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Button, Card, CardContent, Container, Modal, Pagination, Stack } from '@mui/material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import axios from 'axios';
 import { Box } from '@mui/system';
 
@@ -41,7 +42,6 @@ const Home = () => {
                                     setTitle(resp.data.title)
                                     setBody(resp.data.body)
                                     let res = await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${item.id}`)
-                                    
                                     setLiked(res.data)
                                     setOpen(true)
                                 } catch (error) {
@@ -111,18 +111,37 @@ const Home = () => {
                     p: 4,
                 }}>
                     <Box>
-                        <Typography variant="h5" sx={{marginBottom:3}}>{title}</Typography>
+                        <Typography variant="h5" sx={{marginBottom:3}}>{title.charAt(0).toUpperCase() + title.slice(0)}</Typography>
                         <Typography variant="p" sx={{marginBottom:2}}>{body}</Typography>
                         <Box sx={{marginBottom:2,padding:2}}>
-                            <Typography variant='h6' sx={{fontSize:14}}>Comments</Typography>
+                            <Box sx={{display:'flex', flexDirection:'row'}}>
+                                    <Typography variant='h6' sx={{fontSize:14}} onClick={()=>{
+                                        let x = document.getElementById('coment')
+                                        if(x.style.display === 'none'){
+                                            x.style.display = 'block'
+                                        }else{
+                                            x.style.display = 'none'
+                                        }
+                                    }}>Comments</Typography>
+                                    <KeyboardArrowDownIcon onClick={()=>{
+                                        let x = document.getElementById('coment')
+                                        if(x.style.display === 'none'){
+                                            x.style.display = 'block'
+                                        }else{
+                                            x.style.display = 'none'
+                                        }
+                                    }}/>
+                                </Box> 
+                            <div id="coment" style={{display:'none'}}>
                             {liked.map((item,i)=>(
                                 <Card key={i}>
                                     <CardContent>
-                                        <Typography variant='caption' sx={{ fontSize:14,fontStyle:'inherit' }}>{item.name}</Typography>
+                                        <Typography variant='caption' sx={{ fontSize:14,fontStyle:'inherit' }}>{item.email + " - " + item.name}</Typography>
                                         <Typography sx={{ fontSize:12,fontStyle:'inherit' }}>{item.body}</Typography>
                                     </CardContent>
                                 </Card>
                             ))}
+                            </div>
                         </Box>
                     </Box>
                     <Box sx={{ display:'flex',alignItems:'flex-end', justifyContent:'flex-end' }}>
