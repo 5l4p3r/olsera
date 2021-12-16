@@ -17,17 +17,17 @@ const Home = () => {
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
 
+    const getPosters = async() => {
+        try {
+            let resp = await axios.get('https://jsonplaceholder.typicode.com/posts')
+            setTotal(resp.data.length/5)
+            let res = await axios.get(`https://jsonplaceholder.typicode.com/posts?_page=1&_limit=5`)
+            setPoster(res.data)
+        } catch (error) {
+            console.log(error);
+        }
+    };
     useEffect(()=>{
-        const getPosters = async() => {
-            try {
-                let resp = await axios.get('https://jsonplaceholder.typicode.com/posts')
-                setTotal(resp.data.length/5)
-                let res = await axios.get(`https://jsonplaceholder.typicode.com/posts?_page=1&_limit=5`)
-                setPoster(res.data)
-            } catch (error) {
-                console.log(error);
-            }
-        };
         getPosters();
     },[])
     return (
