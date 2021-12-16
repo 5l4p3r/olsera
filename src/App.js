@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie'
 import './style.css'
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter,Routes,Route } from 'react-router-dom'
+import { BrowserRouter,Route, Switch } from 'react-router-dom'
 import Login from './auth/Login'
 import { AllContext } from './hooks/AllContext'
 import Nav from './layout/Nav'
@@ -42,11 +42,11 @@ const App = () => {
     }}>
       <BrowserRouter>
         <Nav/>
-        <Routes>
-          <Route exact path="/" elements={<Home/>}/>
-          <Route path="/login" elements={<Login/>}/>
-          <Route path="/admin" elements={<AdminPage/>}/>
-        </Routes>
+        <Switch>
+          <Route exact path="/" component={Home}/>
+          <Route path="/login" component={Login}/>
+          <Route path="/admin" component={AdminPage}/>
+        </Switch>
       </BrowserRouter>
     </AllContext.Provider>
   )
